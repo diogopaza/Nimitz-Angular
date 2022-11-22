@@ -5,8 +5,16 @@ import { Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class StatusService {
-  constructor(private httClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
+  status: Status[] = [];
+
   getStatus(): Observable<Status[]> {
-    return this.httClient.get<Status[]>('http://localhost:8080/status');
+    return  this.httpClient.get<Status[]>('http://localhost:8080/status');
   }
+
+  getOneStatus(nomeEstado: any): Observable<Status> {
+    return  this.httpClient.get<Status>(`http://localhost:8080/status/${nomeEstado}`);
+  }
+
+
 }

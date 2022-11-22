@@ -1,0 +1,33 @@
+<div class="card">
+  <p-dataView #dv [value]="status" layout="grid" filterBy="nomeEstado">
+    <ng-template pTemplate="header">
+      <span class="description">Última atualização: {{getStatus()}}</span>
+    </ng-template>
+    <ng-template let-status pTemplate="gridItem">
+      <div class="p-col-12 p-md-4">
+        <div class="grid-item card">
+          <div class="grid-item-content">
+            <div [ngClass]="{
+              'status-nome-verde': status.statusServico == 'verde',
+              'status-nome-vermelho': status.statusServico == 'vermelho',
+              'status-nome-amarelo': status.statusServico == 'amarelo'
+           }">{{ status.nomeEstado }}</div>
+
+            <div class="description">
+              <span *ngIf="status.statusServico === 'verde'">NFE - Dísponivel</span>
+              <span *ngIf="status.statusServico === 'vermelho'">NFE - Indísponivel</span>
+              <span *ngIf="status.statusServico === 'amarelo'">NFE - Falta Serviço ou Falha de conexão</span>
+            </div>
+            <div class="grid-item-bottom">
+              <button pButton type="button" label="Detalhes" (click)="openTableStatus(status)" [ngClass]="{
+                'p-button-success': status.statusServico == 'verde',
+                'p-button-danger': status.statusServico == 'vermelho',
+                'p-button-warning': status.statusServico == 'amarelo'
+             }"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>
